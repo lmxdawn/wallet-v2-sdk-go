@@ -1,0 +1,16 @@
+
+.DS_Store
+*.exe
+!swag.exe
+/keydata
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
+
+### VS Code ###
+.vscode/
+
+simple-pay*

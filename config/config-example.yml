@@ -1,0 +1,7 @@
+app:
+  port: 10002
+
+wallet:
+  appid: 123123
+  secret_key: 123123
+  url: http://127.0.1.1:10001
