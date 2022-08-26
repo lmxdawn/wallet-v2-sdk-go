@@ -21,8 +21,8 @@ func Start(isSwag bool, configPath string) {
 	server.Use(gin.Recovery())
 	server.Use(SetWallet(walletClient))
 
-	server.GET("/recharge/call", RechargeCall)
-	server.GET("/withdraw/call", WithdrawCall)
+	server.POST("/recharge/call", RechargeCall)
+	server.POST("/withdraw/call", WithdrawCall)
 	server.GET("/recharge/address", RechargeAddress)
 	server.POST("/withdraw/create", WithdrawCreate)
 
