@@ -53,10 +53,12 @@ func RechargeCall(c *gin.Context) {
 	signData := make(map[string]string)
 	signData["network_name"] = q.NetworkName
 	signData["coin_symbol"] = q.CoinSymbol
+	signData["decimals"] = q.Decimals
 	signData["address"] = q.Address
 	signData["amount"] = q.Amount
 	signData["business_id"] = q.BusinessId
 	signData["block_high"] = q.BlockHigh
+	signData["block_hash"] = q.BlockHash
 	signData["txid"] = q.Txid
 	signData["status"] = strconv.Itoa(q.Status)
 	signBool := wallet.VerifySign(signData)
@@ -113,12 +115,14 @@ func WithdrawCall(c *gin.Context) {
 
 	// 验签
 	signData := make(map[string]string)
-	signData["networkName"] = q.NetworkName
-	signData["coinSymbol"] = q.CoinSymbol
+	signData["network_name"] = q.NetworkName
+	signData["coin_symbol"] = q.CoinSymbol
+	signData["decimals"] = q.Decimals
 	signData["address"] = q.Address
 	signData["amount"] = q.Amount
-	signData["businessId"] = q.BusinessId
-	signData["blockHigh"] = q.BlockHigh
+	signData["business_id"] = q.BusinessId
+	signData["block_high"] = q.BlockHigh
+	signData["block_hash"] = q.BlockHash
 	signData["txid"] = q.Txid
 	signData["status"] = strconv.Itoa(q.Status)
 	signBool := wallet.VerifySign(signData)
