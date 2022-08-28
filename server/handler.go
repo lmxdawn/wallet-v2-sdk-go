@@ -68,7 +68,7 @@ func RechargeCall(c *gin.Context) {
 	}
 
 	// 充值成功
-	fmt.Println(q)
+	fmt.Println("充值成功", q)
 
 }
 
@@ -99,7 +99,7 @@ func WithdrawCreate(c *gin.Context) {
 		APIResponse(c, InternalServerError, nil)
 	}
 
-	fmt.Println("请求结果", withdrawRes)
+	fmt.Println("提现请求结果", withdrawRes)
 
 }
 
