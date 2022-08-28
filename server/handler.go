@@ -6,7 +6,6 @@ import (
 	"github.com/google/uuid"
 	"github/lmxdawn/wallet-example/pkg/util"
 	"github/lmxdawn/wallet-example/wallet"
-	"strconv"
 )
 
 func RechargeAddress(c *gin.Context) {
@@ -42,6 +41,8 @@ func RechargeAddress(c *gin.Context) {
 // RechargeCall 充值回调
 func RechargeCall(c *gin.Context) {
 
+	fmt.Println("充值回调")
+
 	var q RechargeCallReq
 
 	if err := c.ShouldBindJSON(&q); err != nil {
@@ -50,7 +51,8 @@ func RechargeCall(c *gin.Context) {
 	}
 
 	// 验签
-	signData := make(map[string]string)
+	signData := make(map[string]interface{})
+	signData["appid"] = q.Appid
 	signData["network_name"] = q.NetworkName
 	signData["coin_symbol"] = q.CoinSymbol
 	signData["decimals"] = q.Decimals
@@ -60,7 +62,9 @@ func RechargeCall(c *gin.Context) {
 	signData["block_high"] = q.BlockHigh
 	signData["block_hash"] = q.BlockHash
 	signData["txid"] = q.Txid
-	signData["status"] = strconv.Itoa(q.Status)
+	signData["status"] = q.Status
+	signData["sign"] = q.Sign
+	signData["secret_key"] = "123123"
 	signBool := wallet.VerifySign(signData)
 	if !signBool {
 		APIResponse(c, InternalServerError, nil)
@@ -69,6 +73,8 @@ func RechargeCall(c *gin.Context) {
 
 	// 充值成功
 	fmt.Println("充值成功", q)
+
+	APIResponse(c, nil, nil)
 
 }
 
@@ -106,6 +112,8 @@ func WithdrawCreate(c *gin.Context) {
 // WithdrawCall 提现回调
 func WithdrawCall(c *gin.Context) {
 
+	fmt.Println("提现回调")
+
 	var q WithdrawCallReq
 
 	if err := c.ShouldBindJSON(&q); err != nil {
@@ -114,7 +122,8 @@ func WithdrawCall(c *gin.Context) {
 	}
 
 	// 验签
-	signData := make(map[string]string)
+	signData := make(map[string]interface{})
+	signData["appid"] = q.Appid
 	signData["network_name"] = q.NetworkName
 	signData["coin_symbol"] = q.CoinSymbol
 	signData["decimals"] = q.Decimals
@@ -124,7 +133,9 @@ func WithdrawCall(c *gin.Context) {
 	signData["block_high"] = q.BlockHigh
 	signData["block_hash"] = q.BlockHash
 	signData["txid"] = q.Txid
-	signData["status"] = strconv.Itoa(q.Status)
+	signData["status"] = q.Status
+	signData["sign"] = q.Sign
+	signData["secret_key"] = "123123"
 	signBool := wallet.VerifySign(signData)
 	if !signBool {
 		APIResponse(c, InternalServerError, nil)
@@ -133,4 +144,5 @@ func WithdrawCall(c *gin.Context) {
 
 	fmt.Println("提现回调", q)
 
+	APIResponse(c, nil, nil)
 }

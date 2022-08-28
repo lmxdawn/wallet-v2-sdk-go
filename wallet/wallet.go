@@ -58,7 +58,7 @@ func NewWalletClient(appid string, secretKey string, url string) *Client {
 // CreateWallet 创建钱包
 func (w *Client) CreateWallet(memberId string, networkName string, coinSymbol string, callUrl string) (*CreateWalletDataRes, error) {
 
-	data := make(map[string]string)
+	data := make(map[string]interface{})
 	data["network_name"] = networkName
 	data["coin_symbol"] = coinSymbol
 	data["member_id"] = memberId
@@ -81,7 +81,7 @@ func (w *Client) CreateWallet(memberId string, networkName string, coinSymbol st
 // CreateWithdraw 生成提现
 func (w *Client) CreateWithdraw(networkName string, coinSymbol string, address string, amount string, businessId, callUrl string) (*CreateWithdrawDataRes, error) {
 
-	data := make(map[string]string)
+	data := make(map[string]interface{})
 	data["network_name"] = networkName
 	data["coin_symbol"] = coinSymbol
 	data["address"] = address
@@ -111,12 +111,12 @@ func (w *Client) get(path string, params url.Values, res interface{}) error {
 }
 
 // post 请求
-func (w *Client) post(path string, data map[string]string, res interface{}) error {
+func (w *Client) post(path string, data map[string]interface{}, res interface{}) error {
 	return w.request(w.url+path, http.MethodPost, nil, nil, data, res)
 }
 
 // post 请求
-func (w *Client) request(urlStr string, method string, header http.Header, params url.Values, data map[string]string, res interface{}) error {
+func (w *Client) request(urlStr string, method string, header http.Header, params url.Values, data map[string]interface{}, res interface{}) error {
 	var reqBody io.Reader
 	if data != nil {
 		data["appid"] = w.appid
